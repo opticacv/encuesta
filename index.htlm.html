@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Encuesta de satisfacción</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Encuesta">
+<link rel="apple-touch-icon" href="icono.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:500,700">
+<style>
+/* Versión para iPad antiguos (iOS 5-9): sin variables CSS, sin grid ni gap, JavaScript ES5 */
+*{-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{margin:0;padding:0;background:#ffffff;color:#1D1D1B;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+button{font-family:inherit;cursor:pointer;-webkit-appearance:none}
+#top{padding:14px 24px 0;overflow:hidden}
+#logo{float:left;width:104px;height:104px}
+#logo svg{width:104px;height:104px}
+#lock{float:right;margin-top:6px;background:#ffffff;border:1px solid #E3DCCB;border-radius:20px;padding:8px 16px;font-size:15px;color:#5B574E}
+#view{padding:4px 24px 32px;text-align:center}
+h1{font-size:42px;line-height:1.15;margin:10px 0 8px;font-weight:bold}
+.sub{font-size:22px;color:#5B574E;margin:0 0 26px}
+.face{display:inline-block;vertical-align:top;width:230px;margin:0 12px;background:none;border:0;padding:0;color:#1D1D1B}
+.face svg{width:210px;height:210px}
+.face span{display:block;font-size:30px;font-weight:bold;margin-top:6px}
+.seller{display:inline-block;vertical-align:top;width:200px;margin:8px;padding:18px 10px;background:#F8F6F1;border:2px solid #E3DCCB;border-radius:18px;font-size:24px;font-weight:bold;color:#1D1D1B}
+.seller .ini{display:block;width:64px;height:64px;line-height:64px;border-radius:32px;background:#EFE8DC;margin:0 auto 10px;font-size:26px}
+.seller.skip{font-size:18px;font-weight:normal;color:#5B574E;padding-top:46px;padding-bottom:46px}
+.btn{display:inline-block;border:0;border-radius:14px;padding:16px 30px;font-size:24px;font-weight:bold;background:#1D1D1B;color:#ffffff;margin:8px}
+.btn.ghost{background:#ffffff;color:#5B574E;border:2px solid #E3DCCB}
+.btn.big{border:2px dashed #1D1D1B;background:#F8F6F1;color:#1D1D1B;padding:22px 36px;font-size:28px}
+.pill{display:inline-block;background:#F8F6F1;border-radius:30px;padding:5px 16px 5px 5px;font-size:18px;font-weight:bold}
+.pill svg{width:34px;height:34px;vertical-align:middle;margin-right:6px}
+.fields{overflow:hidden;text-align:left;max-width:980px;margin:10px auto 0}
+.field{float:left;width:48%;margin:0 1%}
+.field label{display:block;font-size:22px;font-weight:bold;margin-bottom:6px}
+.dot{display:inline-block;width:14px;height:14px;border-radius:7px;margin-right:8px;vertical-align:middle}
+textarea{width:100%;height:160px;font-size:20px;padding:12px;border:2px solid #E3DCCB;border-radius:14px;background:#F8F6F1;color:#1D1D1B;-webkit-appearance:none;font-family:inherit;resize:none}
+.thanks svg{width:150px;height:150px}
+.pindots{margin:10px 0}
+.pindots i{display:inline-block;width:18px;height:18px;border-radius:9px;border:2px solid #1D1D1B;margin:0 7px}
+.pindots i.f{background:#1D1D1B}
+.pad{width:330px;margin:16px auto 0;overflow:hidden}
+.pad button{float:left;width:100px;height:72px;margin:5px;border:1px solid #E3DCCB;background:#F8F6F1;border-radius:14px;font-size:28px;font-weight:bold;color:#1D1D1B}
+.pad button.t{font-size:15px;font-weight:normal;color:#5B574E}
+.err{color:#B3261E;font-weight:bold;font-size:18px;min-height:26px;margin:6px 0}
+.panel{text-align:left;max-width:1000px;margin:0 auto}
+.panel h2{font-size:30px;margin:6px 0 2px}
+.panel h3{font-size:22px;margin:28px 0 10px}
+.muted{color:#5B574E;margin:0}
+table{width:100%;border-collapse:collapse;font-size:17px;background:#F8F6F1}
+th,td{padding:10px 12px;border-bottom:1px solid #E3DCCB;text-align:left}
+th{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#5B574E}
+td.n,th.n{text-align:right}
+.tabs button{display:inline-block;margin:0 6px 8px 0;border:1px solid #E3DCCB;background:#F8F6F1;border-radius:20px;padding:8px 16px;font-size:16px;font-weight:bold;color:#1D1D1B}
+.tabs button.on{background:#1D1D1B;color:#ffffff;border-color:#1D1D1B}
+.note{background:#F8F6F1;border:1px solid #E3DCCB;border-left:6px solid #6CB33F;border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.note.regular{border-left-color:#F0B429}
+.note.mal{border-left-color:#D8352C}
+.note .meta{font-size:14px;color:#5B574E;margin-bottom:4px}
+.note .meta svg{width:20px;height:20px;vertical-align:middle;margin-right:4px}
+.note p{margin:4px 0;font-size:17px;white-space:pre-wrap;word-wrap:break-word}
+.empty{color:#5B574E;background:#F8F6F1;border:1px dashed #E3DCCB;border-radius:12px;padding:16px;text-align:center}
+.box{background:#F8F6F1;border:1px solid #E3DCCB;border-radius:14px;padding:16px;margin-bottom:14px}
+.box h4{font-size:18px;margin:0 0 10px}
+.box input{font-size:17px;padding:9px 10px;border:1px solid #E3DCCB;border-radius:10px;width:260px;background:#ffffff;color:#1D1D1B;-webkit-appearance:none;font-family:inherit}
+.box textarea{height:180px;font-size:13px;background:#ffffff}
+.sbtn{border:1px solid #E3DCCB;background:#ffffff;border-radius:10px;padding:9px 14px;font-size:16px;font-weight:bold;color:#1D1D1B;margin:4px 6px 4px 0}
+.sbtn.on,.sbtn.primary{background:#1D1D1B;color:#ffffff;border-color:#1D1D1B}
+.sbtn.danger{color:#B3261E}
+a.sbtn{display:inline-block;text-decoration:none}
+.row{margin-bottom:8px}
+.hint{font-size:14px;color:#5B574E;margin:8px 0 0}
+.ok{color:#3D7A1F;font-weight:bold;font-size:16px;margin:0 0 12px}
+@media (max-width:700px){
+  .field{float:none;width:100%;margin:0 0 16px}
+  .face{width:30%;margin:0 1%}
+  .face svg{width:100%;height:auto}
+  h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div id="top">
+  <div id="logo"></div>
+  <button id="lock" type="button" data-act="lock">Privado</button>
+</div>
+<div id="view"></div>
+<script>
+(function(){
+"use strict";
+
+var K_CFG = "encuesta_ipad_cfg", K_RESP = "encuesta_ipad_resp";
+var INK = "#1D1D1B", BEIGE = "#B49D80";
+var NEG = {
+  optica: {top:"ÓPTICA", bot:"CENTRO VISIÓN", nombre:"Óptica Centro Visión", ts:32, tsp:20, off:52},
+  ortopedia: {top:"ORTOPEDIA", bot:"CENTRO TÉCNICO", nombre:"Ortopedia Centro Técnico", ts:30, tsp:9, off:50}
+};
+var LABEL = {mal:"Mal", regular:"Regular", bien:"Muy bien"};
+var COLOR = {mal:"#D8352C", regular:"#F0B429", bien:"#6CB33F"};
+var LEFT_LABEL = {bien:"Lo que te ha gustado", regular:"Lo que no te ha gustado", mal:"Lo que te ha parecido mal"};
+var LEFT_PH = {bien:"Ej.: me explicaron todo con paciencia", regular:"Ej.: tuve que esperar bastante", mal:"Ej.: no me atendieron con amabilidad"};
+
+function load(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
+function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } }
+
+var cfg = load(K_CFG, null) || {pin:"1234", negocio:"optica", next:4,
+  vendedores:[{id:"v1", n:"Vendedor 1"}, {id:"v2", n:"Vendedor 2"}, {id:"v3", n:"Vendedor 3"}]};
+var resp = load(K_RESP, []);
+var S = {screen:"cara"};
+var A = {tab:"todos", pin:"", msg:"", ok:"", confirm:false, csv:false};
+var timer = null;
+var view = document.getElementById("view");
+
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+  return {"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"}[c]; }); }
+function f2(n){ return n < 10 ? "0" + n : "" + n; }
+function fecha(t){ var d = new Date(t); return f2(d.getDate()) + "/" + f2(d.getMonth() + 1) + "/" + d.getFullYear() + " " + f2(d.getHours()) + ":" + f2(d.getMinutes()); }
+function val(id){ var el = document.getElementById(id); return el ? String(el.value || "").replace(/^\s+|\s+$/g, "") : ""; }
+function neg(){ return NEG[cfg.negocio] || NEG.optica; }
+function sellerById(id){ for (var i = 0; i < cfg.vendedores.length; i++){ if (cfg.vendedores[i].id === id) return cfg.vendedores[i]; } return null; }
+function sellerName(id, rec){ var v = sellerById(id); if (v) return v.n; if (id === "ninguno") return "Sin indicar"; return (rec && rec.vn) ? rec.vn : "Vendedor eliminado"; }
+function initials(n){ var p = n.replace(/^\s+|\s+$/g, "").split(/\s+/); var s = ""; for (var i = 0; i < p.length && i < 2; i++){ s += p[i].charAt(0); } return s.toUpperCase(); }
+function findRec(id){ for (var i = 0; i < resp.length; i++){ if (resp[i].id === id) return resp[i]; } return null; }
+
+/* ---------- dibujos ---------- */
+function seal(){
+  var n = neg();
+  return '<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="' + esc(n.nombre) + '">' +
+    '<defs><path id="sealT" d="M 65,200 A 135 135 0 0 1 335,200"/><path id="sealB" d="M 50,200 A 150 150 0 0 0 350,200"/></defs>' +
+    '<circle cx="200" cy="200" r="182" fill="none" stroke="' + BEIGE + '" stroke-width="3"/>' +
+    '<circle cx="200" cy="200" r="108" fill="none" stroke="' + BEIGE + '" stroke-width="2.5"/>' +
+    '<text fill="' + INK + '" text-anchor="middle" font-family="Montserrat, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="' + n.ts + '" letter-spacing="' + n.tsp + '"><textPath xlink:href="#sealT" startOffset="' + n.off + '%">' + n.top + '</textPath></text>' +
+    '<text fill="' + INK + '" text-anchor="middle" font-family="Montserrat, Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="21" letter-spacing="6"><textPath xlink:href="#sealB" startOffset="50%">' + n.bot + '</textPath></text>' +
+    '<rect x="51" y="196" width="7" height="7" transform="rotate(45 54.5 199.5)" fill="' + BEIGE + '"/>' +
+    '<rect x="342" y="196" width="7" height="7" transform="rotate(45 345.5 199.5)" fill="' + BEIGE + '"/>' +
+    '<path d="M 200,128 A 72 72 0 0 0 200,272 L 200,243 A 43 43 0 0 1 200,157 Z" fill="' + INK + '"/>' +
+    '<path d="M 200,157 A 43 43 0 0 1 200,243 Z" fill="' + BEIGE + '"/></svg>';
+}
+function faceSVG(kind){
+  var mouth = {mal:'<path d="M60 142 Q100 106 140 142"/>', regular:'<path d="M62 130 H138"/>', bien:'<path d="M56 116 Q100 166 144 116"/>'}[kind];
+  return '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="100" cy="100" r="94" fill="' + COLOR[kind] + '"/>' +
+    '<g fill="#2B2F2C"><ellipse cx="72" cy="78" rx="10" ry="14"/><ellipse cx="128" cy="78" rx="10" ry="14"/></g>' +
+    '<g fill="none" stroke="#2B2F2C" stroke-width="11" stroke-linecap="round">' + mouth + '</g></svg>';
+}
+function thanksSVG(){
+  return '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="#ffffff" stroke="' + BEIGE + '" stroke-width="12"/>' +
+    '<g fill="' + BEIGE + '"><ellipse cx="76" cy="82" rx="9" ry="12"/><ellipse cx="124" cy="82" rx="9" ry="12"/></g>' +
+    '<path d="M62 114 Q100 158 138 114" fill="none" stroke="' + BEIGE + '" stroke-width="10" stroke-linecap="round"/></svg>';
+}
+
+/* ---------- temporizadores ---------- */
+function clearT(){ if (timer){ clearTimeout(timer); timer = null; } }
+function armT(){
+  clearT();
+  var s = S.screen;
+  if (s === "gracias") timer = setTimeout(reset, 5000);
+  else if (s === "vendedor" || s === "mas" || s === "texto") timer = setTimeout(reset, 25000);
+  else if (s === "pin") timer = setTimeout(reset, 30000);
+  else if (s === "panel") timer = setTimeout(reset, 180000);
+}
+function reset(){ S = {screen:"cara"}; A.pin = ""; A.msg = ""; A.ok = ""; A.confirm = false; A.csv = false; render(); }
+function go(s){ S.screen = s; render(); }
+
+/* ---------- pantallas ---------- */
+function render(){
+  document.getElementById("logo").innerHTML = seal();
+  document.getElementById("lock").innerHTML = (S.screen === "panel" || S.screen === "pin") ? "Cerrar" : "Privado";
+  var h = "", i;
+  if (S.screen === "cara"){
+    h = '<h1>¿Qué tal te hemos atendido hoy?</h1><p class="sub">Toca una cara</p><div>';
+    var orden = ["bien", "regular", "mal"];
+    for (i = 0; i < 3; i++){ h += '<button type="button" class="face" data-act="cara" data-v="' + orden[i] + '">' + faceSVG(orden[i]) + '<span>' + LABEL[orden[i]] + '</span></button>'; }
+    h += '</div>';
+  } else if (S.screen === "vendedor"){
+    h = '<div class="pill">' + faceSVG(S.cara) + LABEL[S.cara] + '</div><h1>¿Quién te ha atendido?</h1><p class="sub">Toca su nombre</p><div>';
+    for (i = 0; i < cfg.vendedores.length; i++){
+      var v = cfg.vendedores[i];
+      h += '<button type="button" class="seller" data-act="vend" data-v="' + esc(v.id) + '"><span class="ini">' + esc(initials(v.n)) + '</span>' + esc(v.n) + '</button>';
+    }
+    h += '<button type="button" class="seller skip" data-act="vend" data-v="ninguno">Prefiero no decirlo</button></div>' +
+      '<div><button type="button" class="btn ghost" data-act="atras">Volver</button></div>';
+  } else if (S.screen === "mas"){
+    h = '<h1>¡Gracias! Tu valoración está guardada.</h1><p class="sub">¿Quieres contarnos algo más con tus palabras?</p>' +
+      '<div><button type="button" class="btn big" data-act="escribir">Escribir mi opinión</button></div>' +
+      '<div><button type="button" class="btn ghost" data-act="fin">No, terminar</button></div>';
+  } else if (S.screen === "texto"){
+    h = '<h1>Cuéntanos</h1><div class="fields">' +
+      '<div class="field"><label for="tA"><span class="dot" style="background:' + COLOR[S.cara] + '"></span>' + LEFT_LABEL[S.cara] + '</label>' +
+      '<textarea id="tA" maxlength="800" placeholder="' + LEFT_PH[S.cara] + '"></textarea></div>' +
+      '<div class="field"><label for="tM"><span class="dot" style="background:' + BEIGE + '"></span>En qué podemos mejorar</label>' +
+      '<textarea id="tM" maxlength="800" placeholder="Ej.: que haya un sitio para sentarse"></textarea></div></div>' +
+      '<div><button type="button" class="btn" data-act="enviar">Enviar</button><button type="button" class="btn ghost" data-act="fin">Cancelar</button></div>';
+  } else if (S.screen === "gracias"){
+    h = '<div class="thanks">' + thanksSVG() + '<h1>¡Gracias por tu opinión!</h1><p class="sub">En ' + esc(neg().nombre) + ' nos ayuda a mejorar cada día.</p></div>';
+  } else if (S.screen === "pin"){
+    h = '<h1>Acceso privado</h1><p class="sub">Escribe el PIN</p><div class="pindots">';
+    for (i = 0; i < 4; i++){ h += '<i class="' + (i < A.pin.length ? "f" : "") + '"></i>'; }
+    h += '</div><p class="err">' + esc(A.msg) + '</p><div class="pad">';
+    var keys = ["1","2","3","4","5","6","7","8","9"];
+    for (i = 0; i < keys.length; i++){ h += '<button type="button" data-act="pk" data-v="' + keys[i] + '">' + keys[i] + '</button>'; }
+    h += '<button type="button" class="t" data-act="lock">Salir</button><button type="button" data-act="pk" data-v="0">0</button><button type="button" class="t" data-act="pdel">Borrar</button></div>';
+  } else if (S.screen === "panel"){
+    h = panel();
+  }
+  view.innerHTML = h;
+  window.scrollTo(0, 0);
+  armT();
+}
+
+function panel(){
+  var n = neg(), i, r, id;
+  var ids = [], seen = {};
+  for (i = 0; i < cfg.vendedores.length; i++){ ids.push(cfg.vendedores[i].id); seen[cfg.vendedores[i].id] = true; }
+  for (i = 0; i < resp.length; i++){ if (!seen[resp[i].v]){ seen[resp[i].v] = true; ids.push(resp[i].v); } }
+  var cnt = {};
+  for (i = 0; i < ids.length; i++){ cnt[ids[i]] = {t:0, bien:0, regular:0, mal:0, notas:0}; }
+  var tot = {t:0, bien:0, regular:0, mal:0};
+  for (i = 0; i < resp.length; i++){
+    r = resp[i]; var c = cnt[r.v];
+    c.t++; c[r.c]++; tot.t++; tot[r.c]++;
+    if (r.a || r.m) c.notas++;
+  }
+  var h = '<div class="panel"><h2>Opiniones</h2><p class="muted">' + esc(n.nombre) + ' · ' + tot.t + ' valoraciones guardadas en este iPad</p>';
+  h += '<h3>Resumen por vendedor</h3><table><thead><tr><th>Vendedor</th><th class="n">Total</th><th class="n">Muy bien</th><th class="n">Regular</th><th class="n">Mal</th></tr></thead><tbody>';
+  for (i = 0; i < ids.length; i++){
+    id = ids[i]; if (!cnt[id].t && !sellerById(id)) continue;
+    h += '<tr><td>' + esc(sellerName(id, findBySeller(id))) + '</td><td class="n">' + cnt[id].t + '</td><td class="n">' + cnt[id].bien + '</td><td class="n">' + cnt[id].regular + '</td><td class="n">' + cnt[id].mal + '</td></tr>';
+  }
+  h += '<tr><td><b>Total</b></td><td class="n"><b>' + tot.t + '</b></td><td class="n">' + tot.bien + '</td><td class="n">' + tot.regular + '</td><td class="n">' + tot.mal + '</td></tr></tbody></table>';
+
+  h += '<h3>Lo que han escrito</h3><div class="tabs"><button type="button" data-act="tab" data-v="todos" class="' + (A.tab === "todos" ? "on" : "") + '">Todos</button>';
+  for (i = 0; i < ids.length; i++){
+    id = ids[i]; if (!cnt[id].notas) continue;
+    h += '<button type="button" data-act="tab" data-v="' + esc(id) + '" class="' + (A.tab === id ? "on" : "") + '">' + esc(sellerName(id, findBySeller(id))) + ' (' + cnt[id].notas + ')</button>';
+  }
+  h += '</div>';
+  var lista = [];
+  for (i = resp.length - 1; i >= 0; i--){ r = resp[i]; if ((r.a || r.m) && (A.tab === "todos" || r.v === A.tab)) lista.push(r); }
+  if (!lista.length) h += '<div class="empty">Todavía no hay opiniones escritas aquí. Aparecerán cuando un cliente escriba la suya.</div>';
+  for (i = 0; i < lista.length && i < 300; i++){
+    r = lista[i];
+    h += '<div class="note ' + r.c + '"><div class="meta">' + faceSVG(r.c) + LABEL[r.c] + ' · ' + esc(sellerName(r.v, r)) + ' · ' + fecha(r.t) + '</div>';
+    if (r.a) h += '<p><b>' + LEFT_LABEL[r.c] + ':</b> ' + esc(r.a) + '</p>';
+    if (r.m) h += '<p><b>En qué podemos mejorar:</b> ' + esc(r.m) + '</p>';
+    h += '</div>';
+  }
+
+  h += '<h3>Ajustes</h3>';
+  if (A.ok) h += '<p class="ok">' + esc(A.ok) + '</p>';
+  h += '<div class="box"><h4>Negocio de este iPad</h4>' +
+    '<button type="button" class="sbtn' + (cfg.negocio === "optica" ? " on" : "") + '" data-act="neg" data-v="optica">Óptica Centro Visión</button>' +
+    '<button type="button" class="sbtn' + (cfg.negocio === "ortopedia" ? " on" : "") + '" data-act="neg" data-v="ortopedia">Ortopedia Centro Técnico</button></div>';
+  h += '<div class="box"><h4>Vendedores</h4>';
+  for (i = 0; i < cfg.vendedores.length; i++){
+    var v = cfg.vendedores[i];
+    h += '<div class="row"><input id="vn_' + esc(v.id) + '" type="text" value="' + esc(v.n) + '" aria-label="Nombre del vendedor"> <button type="button" class="sbtn danger" data-act="vdel" data-v="' + esc(v.id) + '">Quitar</button></div>';
+  }
+  h += '<button type="button" class="sbtn primary" data-act="vsave">Guardar nombres</button>' +
+    '<div class="row" style="margin-top:12px"><input id="vnew" type="text" placeholder="Nombre del nuevo vendedor" aria-label="Nuevo vendedor"> <button type="button" class="sbtn" data-act="vadd">Añadir</button></div></div>';
+  h += '<div class="box"><h4>Cambiar PIN</h4><input id="newpin" type="tel" maxlength="4" placeholder="4 números" aria-label="Nuevo PIN"> <button type="button" class="sbtn primary" data-act="pinchg">Cambiar PIN</button></div>';
+  h += '<div class="box"><h4>Copia de seguridad</h4>';
+  if (!A.csv){
+    h += '<button type="button" class="sbtn" data-act="export">Preparar copia de las opiniones</button><p class="hint">Las opiniones solo se guardan en este iPad. Haz una copia de vez en cuando.</p>';
+  } else {
+    var csv = toCSV();
+    h += '<textarea id="csv" readonly>' + esc(csv) + '</textarea>' +
+      '<button type="button" class="sbtn" data-act="selcsv">Seleccionar todo</button>' +
+      '<a class="sbtn primary" href="mailto:?subject=' + encodeURIComponent("Opiniones " + n.nombre) + '&amp;body=' + encodeURIComponent(csv) + '">Enviar por email</a>' +
+      '<p class="hint">Se abre Mail con las opiniones en el texto. Si hay muchas y el correo sale cortado, selecciona todo, copia y pégalo en un email o en una nota. El texto se puede pegar en Excel.</p>';
+  }
+  h += '</div><div class="box"><h4>Borrar opiniones</h4>';
+  if (!A.confirm) h += '<button type="button" class="sbtn danger" data-act="borrar1">Borrar todas las opiniones</button>';
+  else h += '<p style="margin:0 0 8px"><b>¿Seguro? Se borrarán todas las opiniones de este iPad y no se pueden recuperar.</b></p><button type="button" class="sbtn danger" data-act="borrar2">Sí, borrar todo</button><button type="button" class="sbtn" data-act="borrarno">Cancelar</button>';
+  h += '</div></div>';
+  return h;
+}
+function findBySeller(id){ for (var i = resp.length - 1; i >= 0; i--){ if (resp[i].v === id) return resp[i]; } return null; }
+function csvCell(s){ s = String(s == null ? "" : s); return /[;"\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+function toCSV(){
+  var out = ["Fecha;Vendedor;Valoración;Lo que ha comentado;En qué podemos mejorar"];
+  for (var i = 0; i < resp.length; i++){
+    var r = resp[i];
+    out.push([fecha(r.t), sellerName(r.v, r), LABEL[r.c], r.a, r.m].map(csvCell).join(";"));
+  }
+  return out.join("\n");
+}
+
+/* ---------- acciones ---------- */
+function handle(act, v){
+  var i;
+  if (act === "lock"){ if (S.screen === "panel" || S.screen === "pin") reset(); else { A.pin = ""; A.msg = ""; go("pin"); } return; }
+  if (act === "cara"){ S.cara = v; go("vendedor"); return; }
+  if (act === "atras"){ reset(); return; }
+  if (act === "vend"){
+    var vend = sellerById(v);
+    var r = {id:"r" + new Date().getTime() + "_" + Math.floor(Math.random() * 1000), t:new Date().getTime(), c:S.cara, v:v, vn:vend ? vend.n : "", a:"", m:""};
+    resp.push(r); save(K_RESP, resp); S.rec = r.id; go("mas"); return;
+  }
+  if (act === "escribir"){ go("texto"); return; }
+  if (act === "fin"){ go("gracias"); return; }
+  if (act === "enviar"){
+    var rec = findRec(S.rec);
+    if (rec){ rec.a = val("tA").slice(0, 800); rec.m = val("tM").slice(0, 800); save(K_RESP, resp); }
+    go("gracias"); return;
+  }
+  if (act === "pk"){
+    if (A.pin.length >= 4) return;
+    A.pin += v; A.msg = "";
+    if (A.pin.length === 4){
+      if (A.pin === cfg.pin){ A.pin = ""; A.tab = "todos"; A.ok = ""; A.csv = false; A.confirm = false; go("panel"); return; }
+      A.pin = ""; A.msg = "PIN incorrecto. Prueba otra vez.";
+    }
+    render(); return;
+  }
+  if (act === "pdel"){ A.pin = A.pin.slice(0, -1); render(); return; }
+  if (act === "tab"){ A.tab = v; render(); return; }
+  if (act === "neg"){ cfg.negocio = v; save(K_CFG, cfg); A.ok = "Negocio cambiado."; render(); return; }
+  if (act === "vsave"){
+    for (i = 0; i < cfg.vendedores.length; i++){ var nv = val("vn_" + cfg.vendedores[i].id); if (nv) cfg.vendedores[i].n = nv; }
+    save(K_CFG, cfg); A.ok = "Nombres guardados."; render(); return;
+  }
+  if (act === "vadd"){
+    var nn = val("vnew"); if (!nn){ A.ok = "Escribe el nombre del nuevo vendedor."; render(); return; }
+    cfg.vendedores.push({id:"v" + cfg.next, n:nn}); cfg.next++; save(K_CFG, cfg); A.ok = "Vendedor añadido."; render(); return;
+  }
+  if (act === "vdel"){
+    var keep = [];
+    for (i = 0; i < cfg.vendedores.length; i++){ if (cfg.vendedores[i].id !== v) keep.push(cfg.vendedores[i]); }
+    cfg.vendedores = keep; save(K_CFG, cfg); A.ok = "Vendedor quitado. Sus opiniones se conservan."; render(); return;
+  }
+  if (act === "pinchg"){
+    var p = val("newpin");
+    if (/^[0-9]{4}$/.test(p)){ cfg.pin = p; save(K_CFG, cfg); A.ok = "PIN cambiado."; }
+    else A.ok = "El PIN debe tener exactamente 4 números.";
+    render(); return;
+  }
+  if (act === "export"){ A.csv = true; render(); return; }
+  if (act === "selcsv"){ var t = document.getElementById("csv"); if (t){ t.focus(); try { t.setSelectionRange(0, t.value.length); } catch(e){ t.select(); } } return; }
+  if (act === "borrar1"){ A.confirm = true; render(); return; }
+  if (act === "borrarno"){ A.confirm = false; render(); return; }
+  if (act === "borrar2"){ resp = []; save(K_RESP, resp); A.confirm = false; A.tab = "todos"; A.ok = "Opiniones borradas."; render(); return; }
+}
+
+function findAct(el){
+  while (el && el !== document){
+    if (el.getAttribute && el.getAttribute("data-act")) return el;
+    el = el.parentNode;
+  }
+  return null;
+}
+document.addEventListener("click", function(e){
+  var el = findAct(e.target);
+  if (!el) return;
+  e.preventDefault();
+  handle(el.getAttribute("data-act"), el.getAttribute("data-v"));
+}, false);
+function activity(){ if (S.screen !== "cara") armT(); }
+document.addEventListener("touchstart", activity, false);
+document.addEventListener("keydown", activity, false);
+
+render();
+})();
+</script>
+</body>
+</html>
